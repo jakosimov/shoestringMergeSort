@@ -14,16 +14,21 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         self.shelves: Dict[int, Shelf] = {}
         self.threshold = 2
         self.datapath: str = ""
+        self.datetime_format = ""
 
     def checkItems(self) -> None:
         """
-        A function to loop over all shelves and raise an error if the item count is below the threshold
+        A function to loop over all shelves and raise an alertK if the item count is below the threshold
         """
-        for shelf in self.shelves:
+        for shelf in self.shelves.values():
             if shelf.getItemCount() < self.threshold:
                 self.raiseAlert(shelf.getShelfId())
 
     def plotDemand(self):
+        """
+        A function to plot the demand over the historical data
+        :return:
+        """
         raise NotImplementedError
 
     def saveShelfStates(self) -> None:
@@ -36,9 +41,13 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         if self.datapath == "":
             self.initializeDatabase()
 
-        # GET CURRENT DATETIME
+        # IF DATETIME FORMAT DOES NOT EXIST, INITIALIZE TO DEFAULT VALUE
+        if self.datetime_format == "":
+            self.setDatetimeFormat()
+
+        # GET CURRENT DATETIME IN STRING FORMAT (USED AS A KEY FOR THE DATABASE)
         current_date = datetime.now()
-        date_string = current_date.strftime("%y/%m/%d %H:%M:%S")
+        date_string = self.datetimeToString(current_date)
 
         # GET CURRENT STATE PARAMETERS OF THE SHELVES (name/amount)
         currentState: Dict[int, Dict[str, Union[int, str]]] = {
@@ -90,3 +99,15 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
     def initializeDatabase(self, name: str = "database") -> None:
         current_directory = os.path.dirname(__file__)
         self.datapath = os.path.join(current_directory, "..", "..", "..", "databases", name + ".json")
+
+    def getDatetimeFormat(self) -> str:
+        return self.datetime_format
+
+    def setDatetimeFormat(self, format: str = "%d/%m/%Y %H:%M:%S") -> None:
+        """
+        :param format: The datetime format to be used as the key of the database
+        """
+        self.datetime_format = format
+
+    def datetimeToString(self, date: datetime) -> str:
+        return date.strftime(self.getDatetimeFormat())
