@@ -79,13 +79,13 @@ class InventoryManagementSystemInterface(ABC):
         pass
 
     @abstractmethod
-    def addShelf(self, shelf) -> None:
+    def addShelf(self, shelf: ShelfInterface) -> None:
         pass
 
     @abstractmethod
-    def removeShelf(self, shelfId) -> None:
+    def removeShelf(self, shelfId: int) -> None:
         pass
 
     @abstractmethod
-    def getShelfIdFromQRCode(self) -> int:
+    def getShelfIdFromQRCode(self, imageProcessor: any) -> int:  # TODO: Define type of imageProcessor
         pass
