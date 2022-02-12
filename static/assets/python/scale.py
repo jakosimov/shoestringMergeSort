@@ -1,5 +1,9 @@
 from interfaces import ScaleInterface
 
+
 class Scale(ScaleInterface):
-    def measure(self):
+    def __init__(self) -> None:
+        pass
+
+    def measure(self) -> float:
         raise NotImplementedError
