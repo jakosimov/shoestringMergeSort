@@ -1,4 +1,4 @@
-from interfaces import ScaleInterface
+from static.assets.python.interfaces import ScaleInterface
 
 
 class Scale(ScaleInterface):

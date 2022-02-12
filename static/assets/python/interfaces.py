@@ -93,3 +93,7 @@ class InventoryManagementSystemInterface(ABC):
     @abstractmethod
     def getShelfIdFromQRCode(self, imageProcessor: any) -> int:  # TODO: Define type of imageProcessor
         pass
+
+    @abstractmethod
+    def initializeDatabase(self, path: str) -> None:
+        pass

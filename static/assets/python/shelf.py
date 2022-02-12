@@ -1,6 +1,6 @@
-from interfaces import ShelfInterface
-from data import Data
-import typing
+from static.assets.python.interfaces import ShelfInterface
+from static.assets.python.scale import Scale
+from static.assets.python.data import Data
 
 
 class Shelf(ShelfInterface):
@@ -11,11 +11,11 @@ class Shelf(ShelfInterface):
         self.shelfId: int = 0
 
     def getItemCount(self) -> int:
-        item_weight = self.getItemWeight
+        item_weight = self.getItemWeight()
         total_weight = self.currentWeight
         item_count = round(total_weight / item_weight)
         if item_count < 0:
-            raise Error
+            raise AssertionError
         return item_count
 
     def processNewData(self, data: Data) -> None:
