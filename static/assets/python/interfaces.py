@@ -33,6 +33,14 @@ class ShelfInterface(ABC):
         pass
 
     @abstractmethod
+    def setShelfId(self, id: int) -> None:
+        pass
+
+    @abstractmethod
+    def getShelfId(self) -> int:
+        pass
+
+    @abstractmethod
     def getItemName(self) -> str:
         pass
 
