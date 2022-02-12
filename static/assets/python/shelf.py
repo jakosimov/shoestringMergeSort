@@ -2,17 +2,18 @@ from interfaces import ShelfInterface
 from data import Data
 import typing
 
+
 class Shelf(ShelfInterface):
     def __init__(self) -> None:
-        self.currentWeight : float = 0
-        self.itemWeight : float = 0
-        self.itemName : str = ""
-        self.shelfId : int = 0
+        self.currentWeight: float = 0
+        self.itemWeight: float = 0
+        self.itemName: str = ""
+        self.shelfId: int = 0
 
     def getItemCount(self) -> int:
         item_weight = self.getItemWeight
         total_weight = self.currentWeight
-        item_count = round(total_weight/item_weight)
+        item_count = round(total_weight / item_weight)
         if item_count < 0:
             raise Error
         return item_count
@@ -35,8 +36,9 @@ class Shelf(ShelfInterface):
     def getItemName(self) -> str:
         return self.itemName
 
-    def setItemName(self, itemName : str) -> None:
+    def setItemName(self, itemName: str) -> None:
         self.itemName = itemName
 
-    def initializeShelf(self, scale) -> None:
-        raise NotImplementedError
+    def initializeShelf(self, scale: Scale) -> None:
+        total_weight = scale.measure()
+        self.currentWeight = total_weight
