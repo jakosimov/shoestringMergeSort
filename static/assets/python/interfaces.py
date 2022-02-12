@@ -1,10 +1,6 @@
 from abc import ABC, abstractmethod
-
-
-class ScaleInterface(ABC):
-    @abstractmethod
-    def measure(self):
-        pass
+from typing import List
+from datetime import datetime
 
 
 class DataInterface(ABC):
@@ -13,65 +9,71 @@ class DataInterface(ABC):
         pass
 
 
+class ScaleInterface(ABC):
+    @abstractmethod
+    def measure(self) -> DataInterface:
+        pass
+
+
 class ShelfInterface(ABC):
     @abstractmethod
-    def getItemCount(self):
+    def getItemCount(self) -> int:
         pass
 
     @abstractmethod
-    def processNewData(self, data):
+    def processNewData(self, data: DataInterface) -> None:
         pass
 
     @abstractmethod
-    def setItemWeight(self, coeff):
+    def setItemWeight(self, coeff: float) -> None:
         pass
 
     @abstractmethod
-    def getItemName(self):
+    def getItemName(self) -> str:
         pass
 
     @abstractmethod
-    def setItemName(self, itemName):
+    def setItemName(self, itemName: str) -> None:
         pass
 
     @abstractmethod
-    def initializeShelf(self, scale):
+    def initializeShelf(self, scale: ScaleInterface) -> None:
         pass
 
 
 class InventoryManagementSystemInterface(ABC):
     @abstractmethod
-    def checkItems(self):
+    def checkItems(self) -> None:
         pass
 
     @abstractmethod
-    def plotDemand(self):
+    def plotDemand(self) -> None:
         pass
 
     @abstractmethod
-    def saveShelfStates(self):
+    def saveShelfStates(self) -> None:
         pass
 
     @abstractmethod
-    def getShelfStates(self, timeStamp):
+    def getShelfStates(self, timeStamp: datetime) -> List[List[ShelfInterface]]:
         pass
 
     @abstractmethod
-    def getShelfState(self, timeStamp, shelfIndices):
+    def getShelfState(self, timeStamp: datetime, shelfIndices: List[int]) -> List[List[ShelfInterface]]:
         pass
 
     @abstractmethod
-    def raiseAlert(self, shelfIndex):
+    def raiseAlert(self, shelfIndex: int) -> None:
         pass
 
     @abstractmethod
-    def addShelf(self, shelf):
+    def addShelf(self, shelf) -> None:
         pass
 
     @abstractmethod
-    def removeShelf(self, shelfId):
+    def removeShelf(self, shelfId) -> None:
         pass
 
     @abstractmethod
-    def getShelfIdFromQRCode(self):
+    def getShelfIdFromQRCode(self) -> int:
         pass

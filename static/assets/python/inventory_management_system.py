@@ -1,7 +1,10 @@
 from interfaces import InventoryManagementSystemInterface
-
+import typing
+from datetime import datetime
 
 class InventoryManagementSystem(InventoryManagementSystemInterface):
+    InventoryManagementSystem()
+
     def checkItems(self):
         raise NotImplementedError
 
@@ -11,7 +14,7 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
     def saveShelfStates(self):
         raise NotImplementedError
 
-    def getShelfStates(self, timeStamp):
+    def getShelfStates(self, timeStamp: datetime):
         raise NotImplementedError
 
     def getShelfState(self, timeStamp, shelfIndices):
