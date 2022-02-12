@@ -12,6 +12,9 @@ class Shelf(ShelfInterface):
     def setItemWeight(self, coeff):
         raise NotImplementedError
 
+    def getItemWeight(self):
+        raise NotImplementedError
+
     def getItemName(self):
         raise NotImplementedError
 

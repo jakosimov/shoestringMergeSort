@@ -5,7 +5,7 @@ from datetime import datetime
 
 class DataInterface(ABC):
     @abstractmethod
-    def getTotalWeight(self):
+    def getTotalWeight(self) -> float:
         pass
 
 
@@ -26,6 +26,10 @@ class ShelfInterface(ABC):
 
     @abstractmethod
     def setItemWeight(self, coeff: float) -> None:
+        pass
+
+    @abstractmethod
+    def getItemWeight(self) -> float:
         pass
 
     @abstractmethod
