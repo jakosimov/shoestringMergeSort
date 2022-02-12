@@ -2,17 +2,18 @@ import json
 import os
 from static.assets.python.interfaces import InventoryManagementSystemInterface
 from static.assets.python.shelf import Shelf
-from typing import List, Union
+from typing import List, Union, Dict
 from datetime import datetime
 from pysondb import db
 from pysondb.db import JsonDatabase
+from json.decoder import JSONDecodeError
 
 
 class InventoryManagementSystem(InventoryManagementSystemInterface):
     def __init__(self) -> None:
-        self.shelves: List[Shelf] = []
+        self.shelves: Dict[int, Shelf] = {}
         self.threshold = 2
-        self.database: Union[JsonDatabase, None] = None
+        self.datapath: str = ""
 
     def checkItems(self) -> None:
         """
@@ -26,19 +27,32 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         raise NotImplementedError
 
     def saveShelfStates(self) -> None:
+        if self.datapath == "":
+            self.initializeDatabase()
+
+        current_date = datetime.now()
+        date_string = current_date.strftime("%y/%m/%d %H:%M:%S")
+
         currentState = {
-            datetime.now():
-                [
-                    {
-                        shelf.getShelfId(): [
-                            shelf.getItemName(),
-                            shelf.getItemCount()
-                        ]
-                    } for shelf in self.shelves
-                ]
+            shelf.getShelfId(): {
+                "name": shelf.getItemName(),
+                "amount": shelf.getItemCount()
+            } for shelf in self.shelves.values()
         }
-        jsonObject: str = json.dumps(currentState, indent=2)
-        print(jsonObject)
+
+        old_states = {}
+        with open(self.datapath, "r") as data_file:
+            try:
+                old_states = json.load(data_file)
+                print("here")
+            except JSONDecodeError:
+                pass
+
+        with open(self.datapath, "w") as data_file:
+            old_states[date_string] = currentState
+            json.dump(old_states, data_file, indent=2)
+            data_file.truncate()
+            print(json.dumps(old_states, indent=2))
 
     def getShelfStates(self, timeStamp: datetime):
         raise NotImplementedError
@@ -50,13 +64,14 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         raise NotImplementedError
 
     def addShelf(self, shelf: Shelf):
-        self.shelves.append(shelf)
+        self.shelves[shelf.getShelfId()] = shelf
 
     def removeShelf(self, shelfId):
-        raise NotImplementedError
+        self.shelves.pop(shelfId)
 
     def getShelfIdFromQRCode(self, imageProcessor):  # TO BE CHANGED
         raise NotImplementedError
 
     def initializeDatabase(self, name: str = "database") -> None:
-        self.database = db.getDb(os.path.join("database", name + ".json"))
+        current_directory = os.path.dirname(__file__)
+        self.datapath = os.path.join(current_directory, "..", "..", "..", "databases", name + ".json")
