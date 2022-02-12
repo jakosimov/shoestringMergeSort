@@ -8,6 +8,10 @@ class DataInterface(ABC):
     def getTotalWeight(self) -> float:
         pass
 
+    @abstractmethod
+    def setTotalWeight(self, weight: float) -> None:
+        pass
+
 
 class ScaleInterface(ABC):
     @abstractmethod
