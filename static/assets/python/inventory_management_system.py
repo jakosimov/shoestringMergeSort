@@ -9,6 +9,18 @@ from pysondb.db import JsonDatabase
 from json.decoder import JSONDecodeError
 
 
+# HELPER FUNCTIONS
+def filterDict(dictionary: Dict, filter_keys: List) -> Dict:
+    """
+    :param dictionary: The dictionary to be filtered
+    :param filter_keys: The keys that we want to filter
+    :return: The filtered dictionary
+    """
+    return {
+        key: value for key, value in dictionary.items() if key in filter_keys
+    }
+
+
 class InventoryManagementSystem(InventoryManagementSystemInterface):
     def __init__(self) -> None:
         self.shelves: Dict[int, Shelf] = {}
@@ -96,7 +108,7 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
     def getShelfStatesAtTime(self, timestamp: datetime) -> Dict[int, Dict[str, Union[int, str]]]:
         """
         :param timestamp: The data of all shelves at a given timestamp
-        :return:
+        :return: All the shelf states at the timestamp
         """
         shelf_states = self.getShelfStates()
         date_string = self.datetimeToString(timestamp)
@@ -107,7 +119,10 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         :param shelfIndices: A list of indices of shelves where we want to get the data
         :return: A dictionary of all the historical data for all the shelves which have an index in the shelfIndices
         """
-        raise NotImplementedError
+        states = self.getShelfStates()
+        return {
+            date: filterDict(state, shelfIndices) for date, state in states.items()
+        }
 
     def getShelfStateAtTime(self, shelfIndices: List[int], timestamp: datetime):
         """
@@ -115,7 +130,8 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         :param timestamp: The date where we want to get the data
         :return: A dictionary of the data for all the shelves which have an index in the shelfIndices at a given timestamp
         """
-        raise NotImplementedError
+        states = self.getShelfStatesAtTime(timestamp)
+        return filterDict(states, shelfIndices)
 
     def addShelf(self, shelf: Shelf) -> None:
         """
@@ -151,6 +167,7 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
 
     def setDatetimeFormat(self, datetime_format: str = "%d/%m/%Y %H:%M:%S") -> None:
         """
+        :param datetime_format: The datetime formatting of the store
         :param format: The datetime format to be used as the key of the database
         """
         self.datetime_format = datetime_format
