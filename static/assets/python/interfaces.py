@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Dict, Union
 from datetime import datetime
 
 
@@ -71,11 +71,19 @@ class InventoryManagementSystemInterface(ABC):
         pass
 
     @abstractmethod
-    def getShelfStates(self, timeStamp: datetime) -> List[List[ShelfInterface]]:
+    def getShelfStates(self) -> Dict[str, Dict[int, Dict[str, Union[int, str]]]]:
         pass
 
     @abstractmethod
-    def getShelfState(self, timeStamp: datetime, shelfIndices: List[int]) -> List[List[ShelfInterface]]:
+    def getShelfStatesAtTime(self, timestamp: datetime) -> Dict[int, Dict[str, Union[int, str]]]:
+        pass
+
+    @abstractmethod
+    def getShelfState(self, shelfIndices: List[int]):
+        pass
+
+    @abstractmethod
+    def getShelfStateAtTime(self, shelfIndices: List[int], timestamp: datetime):
         pass
 
     @abstractmethod
@@ -96,4 +104,16 @@ class InventoryManagementSystemInterface(ABC):
 
     @abstractmethod
     def initializeDatabase(self, path: str) -> None:
+        pass
+
+    @abstractmethod
+    def getDatetimeFormat(self) -> str:
+        pass
+
+    @abstractmethod
+    def setDatetimeFormat(self, datetime_format: str) -> None:
+        pass
+
+    @abstractmethod
+    def datetimeToString(self, date: datetime) -> str:
         pass

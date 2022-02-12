@@ -73,10 +73,25 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
             data_file.truncate()  # TRUNCATE TO AVOID ERRORS
             # print(json.dumps(old_states, indent=2))  DEBUG
 
-    def getShelfStates(self, timeStamp: datetime):
+    def getShelfStates(self) -> Dict[str, Dict[int, Dict[str, Union[int, str]]]]:
+        shelf_states: Dict[str, Dict[int, Dict[str, Union[int, str]]]] = {}
+        with open(self.datapath, "r") as data_file:
+            try:
+                old_states = json.load(data_file)
+                print("here")
+            except JSONDecodeError:
+                pass
+        return shelf_states
+
+    def getShelfStatesAtTime(self, timestamp: datetime) -> Dict[int, Dict[str, Union[int, str]]]:
+        shelf_states = self.getShelfStates()
+        date_string = self.datetimeToString(timestamp)
+        return shelf_states[date_string]
+
+    def getShelfState(self, shelfIndices: List[int]):
         raise NotImplementedError
 
-    def getShelfState(self, timeStamp, shelfIndices):
+    def getShelfStateAtTime(self, shelfIndices: List[int], timestamp: datetime):
         raise NotImplementedError
 
     def raiseAlert(self, shelfIndex):
@@ -103,11 +118,11 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
     def getDatetimeFormat(self) -> str:
         return self.datetime_format
 
-    def setDatetimeFormat(self, format: str = "%d/%m/%Y %H:%M:%S") -> None:
+    def setDatetimeFormat(self, datetime_format: str = "%d/%m/%Y %H:%M:%S") -> None:
         """
         :param format: The datetime format to be used as the key of the database
         """
-        self.datetime_format = format
+        self.datetime_format = datetime_format
 
     def datetimeToString(self, date: datetime) -> str:
         return date.strftime(self.getDatetimeFormat())
