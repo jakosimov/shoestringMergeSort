@@ -24,6 +24,13 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
             if shelf.getItemCount() < self.threshold:
                 self.raiseAlert(shelf.getShelfId())
 
+    def raiseAlert(self, shelfId) -> None:
+        """
+        A function to raise an alert if there is something to do with a given shelf
+        :param shelfId: The ID of the shelf which raised the alert
+        """
+        raise NotImplementedError
+
     def plotDemand(self):
         """
         A function to plot the demand over the historical data
@@ -74,6 +81,9 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
             # print(json.dumps(old_states, indent=2))  DEBUG
 
     def getShelfStates(self) -> Dict[str, Dict[int, Dict[str, Union[int, str]]]]:
+        """
+        :return: A dictionary of all the historical state data of the shelves.
+        """
         shelf_states: Dict[str, Dict[int, Dict[str, Union[int, str]]]] = {}
         with open(self.datapath, "r") as data_file:
             try:
@@ -84,17 +94,27 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         return shelf_states
 
     def getShelfStatesAtTime(self, timestamp: datetime) -> Dict[int, Dict[str, Union[int, str]]]:
+        """
+        :param timestamp: The data of all shelves at a given timestamp
+        :return:
+        """
         shelf_states = self.getShelfStates()
         date_string = self.datetimeToString(timestamp)
         return shelf_states[date_string]
 
     def getShelfState(self, shelfIndices: List[int]):
+        """
+        :param shelfIndices: A list of indices of shelves where we want to get the data
+        :return: A dictionary of all the historical data for all the shelves which have an index in the shelfIndices
+        """
         raise NotImplementedError
 
     def getShelfStateAtTime(self, shelfIndices: List[int], timestamp: datetime):
-        raise NotImplementedError
-
-    def raiseAlert(self, shelfIndex):
+        """
+        :param shelfIndices: A list of indices of shelves where we want to get the data
+        :param timestamp: The date where we want to get the data
+        :return: A dictionary of the data for all the shelves which have an index in the shelfIndices at a given timestamp
+        """
         raise NotImplementedError
 
     def addShelf(self, shelf: Shelf) -> None:
@@ -106,16 +126,27 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         self.shelves[shelf.getShelfId()] = shelf  # ADD SHELF TO SHELVES
 
     def removeShelf(self, shelfId):
+        """
+        A function to remove a shelf from the shelves database
+        :param shelfId: The ID of the shelf to be removed
+        """
         self.shelves.pop(shelfId)
 
-    def getShelfIdFromQRCode(self, imageProcessor):  # TO BE CHANGED
+    def getShelfIdFromQRCode(self, imageProcessor):  # TODO: Implement
         raise NotImplementedError
 
     def initializeDatabase(self, name: str = "database") -> None:
+        """
+        A function to setup a database where historical data gets saved
+        :param name: The name of the database file (without extension)
+        """
         current_directory = os.path.dirname(__file__)
         self.datapath = os.path.join(current_directory, "..", "..", "..", "databases", name + ".json")
 
     def getDatetimeFormat(self) -> str:
+        """
+        :return: The datetime formatting string of the store
+        """
         return self.datetime_format
 
     def setDatetimeFormat(self, datetime_format: str = "%d/%m/%Y %H:%M:%S") -> None:
@@ -125,4 +156,8 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         self.datetime_format = datetime_format
 
     def datetimeToString(self, date: datetime) -> str:
+        """
+        :param date: A datetime object to be formatted to a string
+        :return: A string using the datetime format of the current store
+        """
         return date.strftime(self.getDatetimeFormat())
