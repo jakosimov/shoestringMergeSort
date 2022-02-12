@@ -71,3 +71,7 @@ class InventoryManagementSystemInterface(ABC):
     @abstractmethod
     def removeShelf(self, shelfId):
         pass
+
+    @abstractmethod
+    def getShelfIdFromQRCode(self):
+        pass
