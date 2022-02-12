@@ -63,3 +63,11 @@ class InventoryManagementSystemInterface(ABC):
     @abstractmethod
     def raiseAlert(self, shelfIndex):
         pass
+
+    @abstractmethod
+    def addShelf(self, shelf):
+        pass
+
+    @abstractmethod
+    def removeShelf(self, shelfId):
+        pass
