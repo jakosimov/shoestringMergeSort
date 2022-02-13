@@ -72,21 +72,47 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         #         c.close()
 
     def plotDemand(self, shelfId: int) -> str:
-        # TODO: Filtering to only plot certain shelves
+        # TODO: This is very shabby, please someone do a better implementation based on this ty
         """
         :param shelfId: The id of the shelf which needs to be plotted
         :return: the path to the plot file
         """
 
+        # GET ALL THE SHELVES WITH THE ID OF SHELF ID
         states = self.getShelfState([shelfId])
 
-        print(list(states.values()))
+        # states is of the following form:
+        '''
+            {
+                timestamp_1: {
+                    'shelfId' (as a STRING!!): {
+                        'name': itemName,
+                        'amount': itemAmount_1
+                    }
+                }
+                timestamp_2: {
+                    'shelfId' (as a STRING!! the SAME ID AS BEFORE BECAUSE OF THE FILTERING): {
+                        'name': itemName,
+                        'amount': itemAmount_2
+                    }
+                }
+                ...
+            }
+        '''
+        # TODO:
+        # MAKE THIS WORK IF THE ITEM NAMES WITHIN A SHELF GET CHANGED BY TAKING THE MOST RECENT NAME AND ONLY
+        # TAKING ITEMS WITH THAT NAME (e.g. USING ORDERED_SET AND TAKING THE LAST ELEMENT BECAUSE LEXICOGRAFIC
+        # COMPARISON IS THE SAME AS SORTING WITH DATETIMES IN YYYY/MM/DD HH:MM:DD FORMAT WHICH IS THE DEFAULT FORMAT
+
+        # FROM THE DICTIONARY, WE GET THE NAME OF THE ITEM
         name = list(states.values())[0][str(shelfId)]['name']
+        # GETTING DATES AND AMOUNTS BACK FROM THE DICTIONARY (DATES GET CONVERTED BACK TO DATETIME, DW
         dates, amounts = (
             [datetime.strptime(date, self.getDatetimeFormat()) for date, state in states.items()],
             [state[str(shelfId)]['amount'] for date, state in states.items()]
         )
 
+        # PLOTTING
         plt.xlabel("Shelf #" + str(shelfId) + ": " + name)
         plt.plot(dates, amounts)
         plt.show()
@@ -210,7 +236,7 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         """
         return self.datetime_format
 
-    def setDatetimeFormat(self, datetime_format: str = "%d/%m/%Y %H:%M:%S") -> None:
+    def setDatetimeFormat(self, datetime_format: str = "%Y/%m/%d %H:%M:%S") -> None:
         """
         :param datetime_format: The datetime formatting of the store
         :param format: The datetime format to be used as the key of the database
