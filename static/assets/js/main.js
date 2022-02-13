@@ -399,7 +399,7 @@ function getItemAlerts(){
 	}
 	for(let productName in shelf_data){
 		let productInformation = shelf_data[productName]
-		for(let dataPoint in productInformation){
+		for(let dataPoint in productInformation.data){
 			if(mostRecent['name'] === ""){
 				mostRecent = dataPoint
 			}
@@ -414,98 +414,6 @@ function getItemAlerts(){
 	return alerts
 }
 
-// function DtoS(datetime, with_year=false) {
-// 	let day = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][datetime.getDay()];
-// 	let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][datetime.getMonth()];
-// 	let date = datetime.getDate();
-
-
-// 	return day + ' ' + date + ' ' + month + (with_year ? ' \'' + (datetime.getYear() % 100) : '');
-// }
-
-// function dateAfterNDays(n) {
-// 	var date = new Date();
-// 	return new Date(date.setDate(date.getDate() + n));
-// }
-
-// function updatePredictionChart() {
-// 	const today = new Date();
-
-// 	fetch('/api/get_predicted_data') .then((response) => {
-// 		return response.json();
-// 	}).then((text) => {
-// 		console.log('Prediction response:');
-// 		console.log(text);
-
-// 		x_labels = []
-// 		for (let x = 0 ; text < x.x ; length++) {
-// 			x_labels.push(DtoS(dateAfterNDays(1 + x), true))
-// 		}
-
-// 		let chartData = {
-// 			type: 'area',
-// 			scaleX: {
-// 				label: { text: "Day" },
-// 				labels: x_labels
-// 			},
-// 			scaleY: {
-// 				label: { text: "ETS Price (EUR per tonne)" }
-// 			},
-// 			series: [
-// 				{
-// 					values: text
-// 				}
-// 			]
-// 		};
-
-// 		zingchart.render({
-// 			id: 'predictionChart',
-// 			data: chartData,
-// 			height: 400,
-// 			width: '100%'
-// 		});
-// 	});
-// }
-
-// function updateHistoricalChart() {
-// 	const today = new Date();
-
-//     fetch('/api/get_historical_data') .then((response) => {
-// 		return response.json();
-// 	}).then((text) => {
-// 		console.log('Historical response:');
-// 		console.log(text);
-
-// 		let today = new Date();
-// 		x_labels = []
-// 		for (let x = 0 ; x < text.length ; x++) {
-// 			x_labels.push(DtoS(dateAfterNDays(x - text.length), true))
-// 		}
-
-// 		let chartData = {
-// 			type: 'area',
-// 			scaleX: {
-// 				label: { text: "Day" },
-// 				labels: x_labels
-// 			},
-// 			scaleY: {
-// 				label: { text: "ETS Price (EUR per tonne)" }
-// 			},
-// 			series: [
-// 				{
-// 					values: text
-// 				}
-// 			]
-// 		};
-
-// 		zingchart.render({
-// 			id: 'historicalChart',
-// 			data: chartData,
-// 			height: 400,
-// 			width: '100%'
-// 		});
-// 	});
-// }
 
 
 function refresh() {
@@ -524,18 +432,3 @@ window.onload = function() {
 	// });
 }
 
-// function submitForm() {
-
-// 	let array = $('#weatherform').serializeArray().map(x => x.value)
-// 	let url = '/api/electricity_predict/' + array
-
-// 	fetch(url).then((response) => {
-// 		return response.json();
-// 	}).then((text) => {
-// 		let final_text = 'Predicted Electricity Consumption: ' + text + " MW"
-// 		console.log(final_text)
-// 		document.getElementById('predictedElectricityConsumption').innerHTML = final_text
-// 	})
-// }
-
-// Render Method[3]
