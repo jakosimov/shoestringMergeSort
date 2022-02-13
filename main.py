@@ -5,10 +5,8 @@ from flask import request
 import pandas as pd
 import datetime
 import numpy as np
-from inventory_management_system import InventoryManagementSystem
 
 app = Flask(__name__)
-store = InventoryManagementSystem()
 
 def array_to_json(arr):
     return str(arr.tolist())
