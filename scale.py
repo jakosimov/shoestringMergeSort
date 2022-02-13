@@ -1,6 +1,10 @@
-from interfaces import ScaleInterface  # why this error tho? :(
+from typing import List
+
+from interfaces import ScaleInterface
+from data import Data
 import serial
 import time
+import re
 
 
 class Scale(ScaleInterface):
@@ -9,7 +13,7 @@ class Scale(ScaleInterface):
         self.ser = serial.Serial('COM6', baudrate)
         time.sleep(2)
 
-    def measure(self) -> float:  # read and record data
+    def measure(self) -> List[Data]:  # read and record data
         data = []
         for i in range(50):
             b = self.ser.readline()  # read a byte string
@@ -22,22 +26,22 @@ class Scale(ScaleInterface):
                 print('Place a weight of 164g to calibrate. Measurement in 5 seconds!')
                 time.sleep(5)
                 self.ser.write(b'164.0')
-            elif string == 'Save this value to EEPROM adress 0? y/n!':
+            elif string == 'Save this value to EEPROM adress 0? y/n':
                 self.ser.write(b'y')
                 time.sleep(1)
+            elif re.match(r'Load(.)*', string):
+                flt = float(re.findall(r'\d+', string)[0])
+                print(flt)
+                next_data = Data()
+                next_data.setTotalWeight(flt)
+                data.append(next_data)  # add to the end of data list
+                time.sleep(1)  # wait
             else:
-                try:
-                    flt = float(string)
-                    print(flt)
-                    data.append(flt)  # add to the end of data list
-                except ValueError:
-                    print('Not a float', string)
-                time.sleep(0.1)  # wait
+                print('Not a float', string)
+                time.sleep(1)  # wait
         self.ser.close()
 
-        # show the data
-        for line in data:
-            print(line)
+        return data
 
 
 if __name__ == '__main__':
