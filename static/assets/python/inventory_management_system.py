@@ -8,6 +8,8 @@ from pysondb import db
 from pysondb.db import JsonDatabase
 from json.decoder import JSONDecodeError
 import matplotlib.pyplot as plt
+import socket
+import sys
 
 
 # HELPER FUNCTIONS
@@ -44,9 +46,29 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         A function to raise an alert if there is something to do with a given shelf
         :param shelfId: The ID of the shelf which raised the alert
         """
-        # TODO: @Jakob figures out how to display this on our server.
-        # Message is below
-        print("Shelf with ID", shelfId, 'is below threshold.')
+        # TODO: @Jakob figures out how to display this alert on our server.
+        s = socket.socket()
+        port_nr = None
+        port = port_nr
+        localhost = 'localhost'
+        s.connect((localhost, port))
+        message_string = "Shelf with ID", shelfId, 'is below threshold.'
+        s.sendall(message_string.encode())
+        s.close()
+
+        # SERVER SIDE BELOW
+        #     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        #     port = port_nr
+        #     s.bind(('0.0.0.0', port))
+        #     print('Socket binded to port', port_nr)
+        #     s.listen(3)
+        #     print('socket is listening')
+        #
+        #     while True:
+        #         c, addr = s.accept()
+        #         print('Got connection from ', addr)
+        #         print(c.recv(1024))
+        #         c.close()
 
     def plotDemand(self, shelfId) -> str:
         # TODO: Filtering to only plot certain shelves
