@@ -15,7 +15,7 @@ class DataInterface(ABC):
 
 class ScaleInterface(ABC):
     @abstractmethod
-    def measure(self) -> List[Data]:
+    def measure(self) -> List[DataInterface]:
         pass
 
 
