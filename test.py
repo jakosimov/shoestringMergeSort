@@ -22,7 +22,7 @@ for j in range(10):
         shelf.setShelfId(i)
         shelf.setItemName(name)
         shelf.setItemWeight(100 * (i + 1))
-        shelf.currentWeight = (i + math.factorial(j)) * (i + 1) * 100 + 3
+        shelf.currentWeight = (i + 2**j) * (i + 1) * 100 + 3
         store.addShelf(shelf)
 
     store.saveShelfStates()

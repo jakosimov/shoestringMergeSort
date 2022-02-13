@@ -23,9 +23,6 @@ def filterDict(dictionary: Dict, filter_keys: List[int]) -> Dict:
         key: value for key, value in dictionary.items() if int(key) in filter_keys
     }
 
-# I AM ASSUMING THAT THE DATETIME FORMAT IS
-# DD/MM/YYYY HH:MM:SS
-
 class InventoryManagementSystem(InventoryManagementSystemInterface):
     def __init__(self) -> None:
         self.shelves: Dict[int, Shelf] = {}
@@ -115,11 +112,11 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         # PLOTTING
         plt.xlabel("Shelf #" + str(shelfId) + ": " + name)
         plt.plot(dates, amounts)
-        plt.show()
+        # plt.show()
 
         # TODO: CHANGE THIS
-        plt.savefig("./images/plot01.png")
-        return "./images/plot01.png"
+        plt.savefig("./static/images/plot" + str(shelfId) + ".png")
+        return "plot" + str(shelfId) + ".png"
 
     def saveShelfStates(self) -> None:
         """
@@ -228,7 +225,7 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         :param name: The name of the database file (without extension)
         """
         current_directory = os.path.dirname(__file__)
-        self.datapath = os.path.join(current_directory, "..", "..", "..", "databases", name + ".json")
+        self.datapath = os.path.join(current_directory, "static", name + ".json")
 
     def getDatetimeFormat(self) -> str:
         """
