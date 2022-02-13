@@ -1,4 +1,4 @@
-from static.assets.python.interfaces import DataInterface
+from interfaces import DataInterface
 
 
 class Data(DataInterface):

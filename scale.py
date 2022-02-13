@@ -1,4 +1,4 @@
-from static.assets.python.interfaces import ScaleInterface
+from interfaces import ScaleInterface
 
 
 class Scale(ScaleInterface):
@@ -7,4 +7,3 @@ class Scale(ScaleInterface):
 
     def measure(self) -> float:
         raise NotImplementedError
-

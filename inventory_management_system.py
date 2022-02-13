@@ -1,7 +1,7 @@
 import json
 import os
-from static.assets.python.interfaces import InventoryManagementSystemInterface
-from static.assets.python.shelf import Shelf
+from interfaces import InventoryManagementSystemInterface
+from shelf import Shelf
 from typing import List, Union, Dict
 from datetime import datetime
 from pysondb import db

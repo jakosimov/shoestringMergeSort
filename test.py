@@ -1,15 +1,16 @@
 import math
+import random
 from time import sleep
 
-from static.assets.python.shelf import Shelf
-from static.assets.python.inventory_management_system import InventoryManagementSystem
+from shelf import Shelf
+from scale import Scale
+from inventory_management_system import InventoryManagementSystem
 
 
 class FakeScale(Scale):
     def measure(self):
         fake_measurement = random.uniform(0.0, 4421.8)
         return fake_measurement
-
 
 store = InventoryManagementSystem()
 nameList1 = ["mango", "bubble tea", "I am tired"]
