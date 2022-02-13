@@ -1,5 +1,5 @@
 {
-  "12/02/2022 22:31:19": {
+  "13/02/2022 01:28:40": {
     "0": {
       "name": "mango",
       "amount": 0
@@ -13,22 +13,410 @@
       "amount": 2
     }
   },
-  "12/02/2022 22:31:24": {
+  "13/02/2022 01:28:41": {
     "0": {
-      "name": "I",
-      "amount": 0
-    },
-    "1": {
-      "name": "AM",
+      "name": "mango",
       "amount": 1
     },
-    "2": {
-      "name": "A",
+    "1": {
+      "name": "bubble tea",
       "amount": 2
     },
-    "3": {
-      "name": "GENIUS",
+    "2": {
+      "name": "I am tired",
       "amount": 3
+    }
+  },
+  "13/02/2022 01:28:42": {
+    "0": {
+      "name": "mango",
+      "amount": 4
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 5
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 6
+    }
+  },
+  "13/02/2022 01:28:43": {
+    "0": {
+      "name": "mango",
+      "amount": 9
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 10
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 11
+    }
+  },
+  "13/02/2022 01:28:44": {
+    "0": {
+      "name": "mango",
+      "amount": 16
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 17
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 18
+    }
+  },
+  "13/02/2022 01:28:45": {
+    "0": {
+      "name": "mango",
+      "amount": 25
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 26
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 27
+    }
+  },
+  "13/02/2022 01:28:46": {
+    "0": {
+      "name": "mango",
+      "amount": 36
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 37
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 38
+    }
+  },
+  "13/02/2022 01:28:47": {
+    "0": {
+      "name": "mango",
+      "amount": 49
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 50
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 51
+    }
+  },
+  "13/02/2022 01:28:48": {
+    "0": {
+      "name": "mango",
+      "amount": 64
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 65
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 66
+    }
+  },
+  "13/02/2022 01:28:49": {
+    "0": {
+      "name": "mango",
+      "amount": 81
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 82
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 83
+    }
+  },
+  "13/02/2022 01:29:29": {
+    "0": {
+      "name": "mango",
+      "amount": 1
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 2
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 3
+    }
+  },
+  "13/02/2022 01:29:30": {
+    "0": {
+      "name": "mango",
+      "amount": 2
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 3
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 4
+    }
+  },
+  "13/02/2022 01:29:31": {
+    "0": {
+      "name": "mango",
+      "amount": 4
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 5
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 6
+    }
+  },
+  "13/02/2022 01:29:32": {
+    "0": {
+      "name": "mango",
+      "amount": 8
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 9
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 10
+    }
+  },
+  "13/02/2022 01:29:33": {
+    "0": {
+      "name": "mango",
+      "amount": 16
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 17
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 18
+    }
+  },
+  "13/02/2022 01:29:34": {
+    "0": {
+      "name": "mango",
+      "amount": 32
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 33
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 34
+    }
+  },
+  "13/02/2022 01:29:35": {
+    "0": {
+      "name": "mango",
+      "amount": 64
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 65
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 66
+    }
+  },
+  "13/02/2022 01:29:36": {
+    "0": {
+      "name": "mango",
+      "amount": 128
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 129
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 130
+    }
+  },
+  "13/02/2022 01:29:37": {
+    "0": {
+      "name": "mango",
+      "amount": 256
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 257
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 258
+    }
+  },
+  "13/02/2022 01:29:38": {
+    "0": {
+      "name": "mango",
+      "amount": 512
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 513
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 514
+    }
+  },
+  "13/02/2022 01:30:15": {
+    "0": {
+      "name": "mango",
+      "amount": 1
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 2
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 3
+    }
+  },
+  "13/02/2022 01:30:16": {
+    "0": {
+      "name": "mango",
+      "amount": 1
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 2
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 3
+    }
+  },
+  "13/02/2022 01:30:17": {
+    "0": {
+      "name": "mango",
+      "amount": 2
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 3
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 4
+    }
+  },
+  "13/02/2022 01:30:18": {
+    "0": {
+      "name": "mango",
+      "amount": 6
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 7
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 8
+    }
+  },
+  "13/02/2022 01:30:19": {
+    "0": {
+      "name": "mango",
+      "amount": 24
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 25
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 26
+    }
+  },
+  "13/02/2022 01:30:20": {
+    "0": {
+      "name": "mango",
+      "amount": 120
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 121
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 122
+    }
+  },
+  "13/02/2022 01:30:21": {
+    "0": {
+      "name": "mango",
+      "amount": 720
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 721
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 722
+    }
+  },
+  "13/02/2022 01:30:22": {
+    "0": {
+      "name": "mango",
+      "amount": 5040
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 5041
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 5042
+    }
+  },
+  "13/02/2022 01:30:23": {
+    "0": {
+      "name": "mango",
+      "amount": 40320
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 40321
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 40322
+    }
+  },
+  "13/02/2022 01:30:24": {
+    "0": {
+      "name": "mango",
+      "amount": 362880
+    },
+    "1": {
+      "name": "bubble tea",
+      "amount": 362881
+    },
+    "2": {
+      "name": "I am tired",
+      "amount": 362882
     }
   }
 }

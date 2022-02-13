@@ -63,7 +63,7 @@ class InventoryManagementSystemInterface(ABC):
         pass
 
     @abstractmethod
-    def plotDemand(self) -> None:
+    def plotDemand(self, shelfId: int) -> str:
         pass
 
     @abstractmethod

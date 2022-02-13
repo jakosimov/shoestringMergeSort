@@ -13,14 +13,14 @@ import sys
 
 
 # HELPER FUNCTIONS
-def filterDict(dictionary: Dict, filter_keys: List) -> Dict:
+def filterDict(dictionary: Dict, filter_keys: List[int]) -> Dict:
     """
     :param dictionary: The dictionary to be filtered
     :param filter_keys: The keys that we want to filter
     :return: The filtered dictionary
     """
     return {
-        key: value for key, value in dictionary.items() if key in filter_keys
+        key: value for key, value in dictionary.items() if int(key) in filter_keys
     }
 
 # I AM ASSUMING THAT THE DATETIME FORMAT IS
@@ -32,7 +32,8 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         self.threshold = 2
         self.datapath: str = ""
         self.datetime_format = ""
-
+        self.initializeDatabase()
+        self.setDatetimeFormat()
     def checkItems(self) -> None:
         """
         A function to loop over all shelves and raise an alertK if the item count is below the threshold
@@ -70,7 +71,7 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         #         print(c.recv(1024))
         #         c.close()
 
-    def plotDemand(self, shelfId) -> str:
+    def plotDemand(self, shelfId: int) -> str:
         # TODO: Filtering to only plot certain shelves
         """
         :param shelfId: The id of the shelf which needs to be plotted
@@ -79,9 +80,20 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
 
         states = self.getShelfState([shelfId])
 
-        # ROKAS DID NOT CONVINCE ME SO I AM DOING PARSING THE LONG WAY
+        print(list(states.values()))
+        name = list(states.values())[0][str(shelfId)]['name']
+        dates, amounts = (
+            [datetime.strptime(date, self.getDatetimeFormat()) for date, state in states.items()],
+            [state[str(shelfId)]['amount'] for date, state in states.items()]
+        )
 
-        raise NotImplementedError
+        plt.xlabel("Shelf #" + str(shelfId) + ": " + name)
+        plt.plot(dates, amounts)
+        plt.show()
+
+        # TODO: CHANGE THIS
+        plt.savefig("./images/plot01.png")
+        return "./images/plot01.png"
 
     def saveShelfStates(self) -> None:
         """
@@ -132,7 +144,7 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         shelf_states: Dict[str, Dict[int, Dict[str, Union[int, str]]]] = {}
         with open(self.datapath, "r") as data_file:
             try:
-                old_states = json.load(data_file)
+                shelf_states = json.load(data_file)
                 print("here")
             except JSONDecodeError:
                 pass
