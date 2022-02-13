@@ -1,4 +1,4 @@
-from interfaces import ScaleInterface
+from interfaces import ScaleInterface  # why this error tho? :(
 import serial
 import time
 
