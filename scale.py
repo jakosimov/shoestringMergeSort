@@ -5,7 +5,7 @@ import time
 
 class Scale(ScaleInterface):
     def __init__(self) -> None:
-        serial_port = 57600
+        self.serial_port = 57600
 
     def measure(self) -> float:
         # set up the serial line
@@ -27,3 +27,9 @@ class Scale(ScaleInterface):
         # show the data
         for line in data:
             print(line)
+
+
+if __name__ == '__main__':
+    scale = Scale()
+    weight = scale.measure()
+    print(weight)
