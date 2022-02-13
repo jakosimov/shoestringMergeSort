@@ -7,6 +7,7 @@ from datetime import datetime
 from pysondb import db
 from pysondb.db import JsonDatabase
 from json.decoder import JSONDecodeError
+import matplotlib.pyplot as plt
 
 
 # HELPER FUNCTIONS
@@ -20,6 +21,8 @@ def filterDict(dictionary: Dict, filter_keys: List) -> Dict:
         key: value for key, value in dictionary.items() if key in filter_keys
     }
 
+# I AM ASSUMING THAT THE DATETIME FORMAT IS
+# DD/MM/YYYY HH:MM:SS
 
 class InventoryManagementSystem(InventoryManagementSystemInterface):
     def __init__(self) -> None:
@@ -43,11 +46,17 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         """
         raise NotImplementedError
 
-    def plotDemand(self):
+    def plotDemand(self, shelfId) -> str:
+        # TODO: Filtering to only plot certain shelves
         """
-        A function to plot the demand over the historical data
-        :return:
+        :param shelfId: The id of the shelf which needs to be plotted
+        :return: the path to the plot file
         """
+
+        states = self.getShelfState([shelfId])
+
+        # ROKAS DID NOT CONVINCE ME SO I AM DOING PARSING THE LONG WAY
+
         raise NotImplementedError
 
     def saveShelfStates(self) -> None:
