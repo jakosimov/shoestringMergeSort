@@ -4,6 +4,7 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+
 (function($) {
 
 	var	$window = $(window),
@@ -261,137 +262,164 @@
 
 })(jQuery);
 
-function refresh_sentiment() {
-	fetch('/test')
+
+shelf_data = {}
+
+function refresh_data() {
+	fetch('/static/database.json')
 		.then((response) => {
 			return response.json();
 		}).then((text) => {
-			console.log('Sentiment response: ' + text.response);
-			document.getElementById('sentiment').innerHTML =
-				'Sentiment score: ' + (text.response);
-		});
-}
+			console.log('Sentiment response: ' + text);
+			console.log(text)
 
-function DtoS(datetime, with_year=false) {
-	let day = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][datetime.getDay()];
-	let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][datetime.getMonth()];
-	let date = datetime.getDate();
-
-
-	return day + ' ' + date + ' ' + month + (with_year ? ' \'' + (datetime.getYear() % 100) : '');
-}
-
-function dateAfterNDays(n) {
-	var date = new Date();
-	return new Date(date.setDate(date.getDate() + n));
-}
-
-function updatePredictionChart() {
-	const today = new Date();
-
-	fetch('/api/get_predicted_data') .then((response) => {
-		return response.json();
-	}).then((text) => {
-		console.log('Prediction response:');
-		console.log(text);
-
-		x_labels = []
-		for (let x = 0 ; text < x.x ; length++) {
-			x_labels.push(DtoS(dateAfterNDays(1 + x), true))
-		}
-
-		let chartData = {
-			type: 'area',
-			scaleX: {
-				label: { text: "Day" },
-				labels: x_labels
-			},
-			scaleY: {
-				label: { text: "ETS Price (EUR per tonne)" }
-			},
-			series: [
-				{
-					values: text
+			products = {}
+			for (let date in text) {
+				let dataPoint = text[date]
+				for (let index in dataPoint) {
+					product = dataPoint[index].name;
+					amount = dataPoint[index].amount;
+					if (!(product in products)) {
+						products[product] = []
+					}
+					point = {
+						date: date,
+						amount: amount
+					}
+					products[product].push(point)
 				}
-			]
-		};
+			}
+			console.log(products)
 
-		zingchart.render({
-			id: 'predictionChart',
-			data: chartData,
-			height: 400,
-			width: '100%'
+
+			shelf_data = products
 		});
-	});
 }
 
-function updateHistoricalChart() {
-	const today = new Date();
+f
 
-    fetch('/api/get_historical_data') .then((response) => {
-		return response.json();
-	}).then((text) => {
-		console.log('Historical response:');
-		console.log(text);
+// function DtoS(datetime, with_year=false) {
+// 	let day = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][datetime.getDay()];
+// 	let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][datetime.getMonth()];
+// 	let date = datetime.getDate();
 
-		let today = new Date();
-		x_labels = []
-		for (let x = 0 ; x < text.length ; x++) {
-			x_labels.push(DtoS(dateAfterNDays(x - text.length), true))
-		}
 
-		let chartData = {
-			type: 'area',
-			scaleX: {
-				label: { text: "Day" },
-				labels: x_labels
-			},
-			scaleY: {
-				label: { text: "ETS Price (EUR per tonne)" }
-			},
-			series: [
-				{
-					values: text
-				}
-			]
-		};
+// 	return day + ' ' + date + ' ' + month + (with_year ? ' \'' + (datetime.getYear() % 100) : '');
+// }
 
-		zingchart.render({
-			id: 'historicalChart',
-			data: chartData,
-			height: 400,
-			width: '100%'
-		});
-	});
-}
+// function dateAfterNDays(n) {
+// 	var date = new Date();
+// 	return new Date(date.setDate(date.getDate() + n));
+// }
+
+// function updatePredictionChart() {
+// 	const today = new Date();
+
+// 	fetch('/api/get_predicted_data') .then((response) => {
+// 		return response.json();
+// 	}).then((text) => {
+// 		console.log('Prediction response:');
+// 		console.log(text);
+
+// 		x_labels = []
+// 		for (let x = 0 ; text < x.x ; length++) {
+// 			x_labels.push(DtoS(dateAfterNDays(1 + x), true))
+// 		}
+
+// 		let chartData = {
+// 			type: 'area',
+// 			scaleX: {
+// 				label: { text: "Day" },
+// 				labels: x_labels
+// 			},
+// 			scaleY: {
+// 				label: { text: "ETS Price (EUR per tonne)" }
+// 			},
+// 			series: [
+// 				{
+// 					values: text
+// 				}
+// 			]
+// 		};
+
+// 		zingchart.render({
+// 			id: 'predictionChart',
+// 			data: chartData,
+// 			height: 400,
+// 			width: '100%'
+// 		});
+// 	});
+// }
+
+// function updateHistoricalChart() {
+// 	const today = new Date();
+
+//     fetch('/api/get_historical_data') .then((response) => {
+// 		return response.json();
+// 	}).then((text) => {
+// 		console.log('Historical response:');
+// 		console.log(text);
+
+// 		let today = new Date();
+// 		x_labels = []
+// 		for (let x = 0 ; x < text.length ; x++) {
+// 			x_labels.push(DtoS(dateAfterNDays(x - text.length), true))
+// 		}
+
+// 		let chartData = {
+// 			type: 'area',
+// 			scaleX: {
+// 				label: { text: "Day" },
+// 				labels: x_labels
+// 			},
+// 			scaleY: {
+// 				label: { text: "ETS Price (EUR per tonne)" }
+// 			},
+// 			series: [
+// 				{
+// 					values: text
+// 				}
+// 			]
+// 		};
+
+// 		zingchart.render({
+// 			id: 'historicalChart',
+// 			data: chartData,
+// 			height: 400,
+// 			width: '100%'
+// 		});
+// 	});
+// }
 
 
 function refresh() {
-	refresh_sentiment();
-	updatePredictionChart();
-	updateHistoricalChart();
+	refresh_data();
+	// updatePredictionChart();
+	// updateHistoricalChart();
 }
 
 
 window.onload = function() {
 	refresh();
+	seconds = 10
+	setInterval(refresh, seconds * 1000)
 	// document.find_element_by_id('refresh').on('click', (e) => {
 	// 	refresh();
 	// });
 }
 
-function submitForm() {
+// function submitForm() {
 
-	let array = $('#weatherform').serializeArray().map(x => x.value)
-	let url = '/api/electricity_predict/' + array
+// 	let array = $('#weatherform').serializeArray().map(x => x.value)
+// 	let url = '/api/electricity_predict/' + array
 
-	fetch(url).then((response) => {
-		return response.json();
-	}).then((text) => {
-		let final_text = 'Predicted Electricity Consumption: ' + text + " MW"
-		console.log(final_text)
-		document.getElementById('predictedElectricityConsumption').innerHTML = final_text
-	})
-}
+// 	fetch(url).then((response) => {
+// 		return response.json();
+// 	}).then((text) => {
+// 		let final_text = 'Predicted Electricity Consumption: ' + text + " MW"
+// 		console.log(final_text)
+// 		document.getElementById('predictedElectricityConsumption').innerHTML = final_text
+// 	})
+// }
 
 // Render Method[3]
