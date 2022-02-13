@@ -5,9 +5,10 @@ from static.assets.python.shelf import Shelf
 from static.assets.python.inventory_management_system import InventoryManagementSystem
 
 
-def fake_scale_measurement() -> float:
-    fake_measurement = random.uniform(0.0, 4421.8)
-    return fake_measurement
+class FakeScale(Scale):
+    def measure(self):
+        fake_measurement = random.uniform(0.0, 4421.8)
+        return fake_measurement
 
 
 if __name__ == '__main__':
