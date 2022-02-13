@@ -314,6 +314,31 @@ function updateInterface() {
 
 }
 
+let threshold = 2;
+function getItemAlerts(){
+
+	let alerts = {}
+	let mostRecent = {
+		name: "",
+		amount: -1
+	}
+	for(let productName in shelf_data){
+		let productInformation = shelf_data[productName]
+		for(let dataPoint in productInformation){
+			if(mostRecent['name'] === ""){
+				mostRecent = dataPoint
+			}
+			else if(dataPoint['date'] > mostRecent['date']){
+					mostRecent = dataPoint
+			}
+		}
+		if(mostRecent['name'] !== ""){
+			alerts[productName] = mostRecent['amount'] < threshold
+		}
+	}
+	return alerts
+}
+
 // function DtoS(datetime, with_year=false) {
 // 	let day = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][datetime.getDay()];
 // 	let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][datetime.getMonth()];

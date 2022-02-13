@@ -1,6 +1,6 @@
-from static.assets.python.interfaces import ShelfInterface
-from static.assets.python.scale import Scale
-from static.assets.python.data import Data
+from interfaces import ShelfInterface
+from scale import Scale
+from data import Data
 
 
 class Shelf(ShelfInterface):
