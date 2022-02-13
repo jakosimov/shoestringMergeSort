@@ -293,10 +293,26 @@ function refresh_data() {
 
 
 			shelf_data = products
+			updateInterface()
 		});
 }
 
-f
+function updateInterface() {
+	let select_form = document.getElementById('select-products')
+	console.log(select_form.innerHTML)
+	let checkboxHtml = '<label>Shelf graphs</label>'
+	for (let productName in shelf_data) {
+		let item = `<input name="${productName}" type="checkbox"/>\n<label>${productName}</label>\n`
+		checkboxHtml += item
+
+		let product = shelf_data[productName]
+
+	}
+
+	select_form.innerHTML = checkboxHtml
+
+
+}
 
 // function DtoS(datetime, with_year=false) {
 // 	let day = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][datetime.getDay()];
