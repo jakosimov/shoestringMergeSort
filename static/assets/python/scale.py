@@ -7,3 +7,4 @@ class Scale(ScaleInterface):
 
     def measure(self) -> float:
         raise NotImplementedError
+

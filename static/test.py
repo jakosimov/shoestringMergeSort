@@ -3,6 +3,12 @@ from time import sleep
 from static.assets.python.shelf import Shelf
 from static.assets.python.inventory_management_system import InventoryManagementSystem
 
+
+def fake_scale_measurement() -> float:
+    fake_measurement = random.uniform(0.0, 4421.8)
+    return fake_measurement
+
+
 store = InventoryManagementSystem()
 nameList1 = ["mango", "bubble tea", "I am tired"]
 nameList2 = ["I", "AM", "A", "GENIUS"]
@@ -14,7 +20,6 @@ for i, name in enumerate(nameList1):
     shelf.setItemWeight(100 * (i + 1))
     shelf.currentWeight = i * (i + 1) * 100 + 3
     store.addShelf(shelf)
-
 
 store.saveShelfStates()
 
@@ -32,5 +37,3 @@ for i, name in enumerate(nameList2):
     store.addShelf(shelf)
 
 store.saveShelfStates()
-
-
