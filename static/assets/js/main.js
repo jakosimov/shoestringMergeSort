@@ -279,14 +279,18 @@ function refresh_data() {
 				for (let index in dataPoint) {
 					product = dataPoint[index].name;
 					amount = dataPoint[index].amount;
+					let checked = false
+					if (product in shelf_data && shelf_data[product].checked) {
+						checked = true
+					}
 					if (!(product in products)) {
-						products[product] = []
+						products[product] = {data: [], checked: checked}
 					}
 					point = {
 						date: date,
 						amount: amount
 					}
-					products[product].push(point)
+					products[product].data.push(point)
 				}
 			}
 			console.log(products)
@@ -297,20 +301,91 @@ function refresh_data() {
 		});
 }
 
+function hypenate(name) {
+	return name.replace(/ /g, '-')
+}
+
+function updateChartData(productName) {
+	console.log(productName);
+	let product = shelf_data[productName]
+	let hyphenated = hypenate(productName) + '-check'
+	let isOn = product.checked
+	if (!isOn) {
+		return
+	}
+
+
+
+	x_labels = product.data.map(x => x.date)
+	console.log(x_labels);
+	y_values = product.data.map(x => x.amount)
+	console.log(y_values);
+
+	let chartData = {
+		type: 'area',
+		scaleX: {
+			label: { text: "Day" },
+			labels: x_labels
+		},
+		scaleY: {
+			label: { text: "ETS Price (EUR per tonne)" }
+		},
+		series: [
+			{
+				values: y_values
+			}
+		]
+	};
+	let id = productName.replace(/ /g, '-') + '-chart'
+
+	zingchart.render({
+		id: id,
+		data: chartData,
+		height: 400,
+		width: '100%'
+	});
+
+}
+
+function updateChecked(productName) {
+	shelf_data[productName].checked = !shelf_data[productName].checked;
+	updateInterface()
+}
+
 function updateInterface() {
 	let select_form = document.getElementById('select-products')
+	let graphDiv = document.getElementById('graphs')
 	console.log(select_form.innerHTML)
 	let checkboxHtml = '<label>Shelf graphs</label>'
+	let graphHtml = ''
 	for (let productName in shelf_data) {
-		let item = `<input name="${productName}" type="checkbox"/>\n<label>${productName}</label>\n`
+		let hyphenProductName2 = hypenate(productName) + '-check'
+		let checked = ''
+		if (productName in shelf_data && shelf_data[productName].checked) {
+			checked = 'checked'
+		}
+
+		let title = ''
+		if (shelf_data[productName].checked) {
+			title = `<h3>${productName}</h3>`
+		}
+
+		let item = `<div onclick="updateChecked('${productName}')"><input id="${hyphenProductName2}" name="${productName}" type="checkbox" ${checked}/>\n<label>${productName}</label></div>\n`
+		let hyphenProductName = productName.replace(/ /g, '-') + '-chart'
+		let graph = `<div">${title}<div id="${hyphenProductName}"></div></div>`
 		checkboxHtml += item
+		graphHtml += graph
 
 		let product = shelf_data[productName]
-
 	}
 
 	select_form.innerHTML = checkboxHtml
+	graphDiv.innerHTML = graphHtml
 
+
+	for (let productName in shelf_data) {
+		updateChartData(productName)
+	}
 
 }
 
@@ -442,7 +517,7 @@ function refresh() {
 
 window.onload = function() {
 	refresh();
-	seconds = 10
+	seconds = 60
 	setInterval(refresh, seconds * 1000)
 	// document.find_element_by_id('refresh').on('click', (e) => {
 	// 	refresh();
