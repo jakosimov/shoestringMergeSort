@@ -44,7 +44,9 @@ class InventoryManagementSystem(InventoryManagementSystemInterface):
         A function to raise an alert if there is something to do with a given shelf
         :param shelfId: The ID of the shelf which raised the alert
         """
-        raise NotImplementedError
+        # TODO: @Jakob figures out how to display this on our server.
+        # Message is below
+        print("Shelf with ID", shelfId, 'is below threshold.')
 
     def plotDemand(self, shelfId) -> str:
         # TODO: Filtering to only plot certain shelves
