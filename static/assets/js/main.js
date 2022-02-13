@@ -390,7 +390,6 @@ function updateInterface() {
 }
 
 let threshold = 2;
-let threshold = 2;
 function getItemAlerts(){
 
 	let alerts = {}
